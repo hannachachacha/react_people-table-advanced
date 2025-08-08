@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Person } from '../types';
 import { PersonLink } from './PersonLink';
 import { useLocation, useSearchParams } from 'react-router-dom';
@@ -16,13 +16,15 @@ type SortParams = {
 
 /* eslint-disable jsx-a11y/control-has-associated-label */
 export const PeopleTable: React.FC<Props> = ({ people }) => {
-  const nameToPersonMap = people.reduce(
-    (map, person) => ({
-      ...map,
-      [person.name]: person,
-    }),
-    {} as Record<string, Person>,
-  );
+  const nameToPersonMap = useMemo(() => {
+    return people.reduce(
+      (map, person) => ({
+        ...map,
+        [person.name]: person,
+      }),
+      {} as Record<string, Person>,
+    );
+  }, [people]);
 
   const location = useLocation();
   const activeSlug = location.pathname.split('/').at(-1);
@@ -164,7 +166,7 @@ export const PeopleTable: React.FC<Props> = ({ people }) => {
                 }}
               >
                 <span className="icon">
-                  <i className="fas fa-sort-up" />
+                  <i className="fas fa-sort" />
                 </span>
               </SearchLink>
             </span>
