@@ -7,6 +7,12 @@ export const PeopleFilters = () => {
   const sex = searchParams.get('sex') || null;
   const centuries = searchParams.getAll('centuries') || [];
 
+  const toggleCenturyParams = (century: string): { centuries: string[] } => {
+    return centuries.includes(century)
+      ? { centuries: centuries.filter(c => c !== century) }
+      : { centuries: [...centuries, century] };
+  };
+
   return (
     <nav className="panel">
       <p className="panel-heading">Filters</p>
@@ -64,31 +70,31 @@ export const PeopleFilters = () => {
         <div className="level is-flex-grow-1 is-mobile" data-cy="CenturyFilter">
           <div className="level-left">
             <SearchLink
-              params={{ centuries: '16' }}
+              params={toggleCenturyParams('16')}
               className={`button mr-1${centuries.includes('16') ? ' is-info' : ''}`}
             >
               16
             </SearchLink>
             <SearchLink
-              params={{ centuries: '17' }}
+              params={toggleCenturyParams('17')}
               className={`button mr-1${centuries.includes('17') ? ' is-info' : ''}`}
             >
               17
             </SearchLink>
             <SearchLink
-              params={{ centuries: '18' }}
+              params={toggleCenturyParams('18')}
               className={`button mr-1${centuries.includes('18') ? ' is-info' : ''}`}
             >
               18
             </SearchLink>
             <SearchLink
-              params={{ centuries: '19' }}
+              params={toggleCenturyParams('19')}
               className={`button mr-1${centuries.includes('19') ? ' is-info' : ''}`}
             >
               19
             </SearchLink>
             <SearchLink
-              params={{ centuries: '20' }}
+              params={toggleCenturyParams('20')}
               className={`button mr-1${centuries.includes('20') ? ' is-info' : ''}`}
             >
               20

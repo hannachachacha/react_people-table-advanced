@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useSearchParams } from 'react-router-dom';
 
 export const Navbar = () => {
   function getNavLinkClass({ isActive }: { isActive: boolean }) {
@@ -7,6 +7,8 @@ export const Navbar = () => {
       'has-background-grey-lighter': isActive,
     });
   }
+
+  const [searchParams] = useSearchParams();
 
   return (
     <nav
@@ -20,7 +22,13 @@ export const Navbar = () => {
           <NavLink to="/" end className={getNavLinkClass}>
             Home
           </NavLink>
-          <NavLink to="people" className={getNavLinkClass}>
+          <NavLink
+            to={{
+              pathname: '/people',
+              search: searchParams.toString(),
+            }}
+            className={getNavLinkClass}
+          >
             People
           </NavLink>
         </div>
